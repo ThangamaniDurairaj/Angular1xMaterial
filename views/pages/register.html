@@ -1,0 +1,195 @@
+<div id="wrapper">
+    <header></header>
+    <div id="page-wrapper" style="min-height: 561px;">
+        <div ui-view>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">User Register</h1>
+                        <div ng-cloak>
+                            <md-content>
+                                <md-tabs md-dynamic-height md-border-bottom>
+                                    <md-tab label="Personal" class="tab">
+                                        <md-content class="md-padding">
+                                            <div layout="column" ng-cloak="" class="md-inline-form">
+                                                <md-toolbar class="md-primary">
+                                                    <div class="md-toolbar-tools">
+                                                        <h1 class="md-flex">Personal</h1>
+                                                    </div>
+                                                </md-toolbar>
+                                                <md-content layout-padding="">
+                                                    <div>
+                                                        <form name="userForm">
+                                                            <div layout-gt-sm="row">
+                                                                <md-input-container  class="md-block" flex-gt-sm="">
+                                                                    <label>First name</label>
+                                                                    <input ng-model="user.firstName" >
+                                                                </md-input-container>
+                                                                <md-input-container class="md-block" flex-gt-sm="">
+                                                                    <label>Middle name</label>
+                                                                    <input ng-model="theMax">
+                                                                </md-input-container>
+                                                                <md-input-container class="md-block" flex-gt-sm="">
+                                                                    <label>Last name</label>
+                                                                    <input ng-model="theMax">
+                                                                </md-input-container>
+                                                            </div>
+                                                            <div layout-gt-sm="row">
+                                                                <label>Gender</label>
+                                                                <md-input-container class="md-block" flex-gt-sm="">
+                                                                    <md-radio-group ng-model="user.gender">
+                                                                        <md-radio-button value="Male">Male</md-radio-button>
+                                                                        <md-radio-button value="Female"> Female </md-radio-button>
+                                                                        <md-radio-button value="Others">Others</md-radio-button>
+                                                                    </md-radio-group>
+                                                                </md-input-container>
+                                                                <md-input-container flex-gt-sm="">
+                                                                    <label>Date of Birth</label>
+                                                                    <md-datepicker ng-model="user.admdate"></md-datepicker>
+                                                                </md-input-container>
+                                                            </div>
+                                                            <div layout-gt-sm="row">
+                                                                <md-input-container class="md-block" flex-gt-sm>
+                                                                    <label>Aadhaar Number</label>
+                                                                    <input name="social" ng-model="user.social" ng-pattern="/^[0-9]{3}-[0-9]{2}-[0-9]{4}$/" />
+
+                                                                    <div class="hint" ng-if="!showHints">###-##-####</div>
+
+                                                                    <div ng-messages="userForm.social.$error" ng-if="!showHints">
+                                                                        <div ng-message="pattern">Please enter a valid SSN.</div>
+                                                                    </div>
+                                                                </md-input-container>
+
+                                                                <md-input-container class="md-block" flex-gt-sm>
+                                                                    <label>Phone Number</label>
+                                                                    <input name="phone" ng-model="user.phone" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/" />
+
+                                                                    <div class="hint" ng-show="showHints">(###) ###-####</div>
+
+                                                                    <div ng-messages="userForm.phone.$error" ng-hide="showHints">
+                                                                        <div ng-message="pattern">(###) ###-#### - Please enter a valid phone number.</div>
+                                                                    </div>
+                                                                </md-input-container>
+                                                            </div>
+
+                                                                <md-input-container class="md-block">
+                                                                    <label>Remarks</label>
+                                                                    <textarea ng-model="user.biography" md-maxlength="150" rows="5" md-select-on-focus=""></textarea>
+                                                                </md-input-container>
+
+
+</form>
+                                                    </div>
+                                                </md-content>
+                                            </div>
+                                    </md-tab>
+                                    <md-tab label="Address" class="tab">
+                                        <md-content class="md-padding">
+                                            <md-toolbar class="md-primary">
+                                                <div class="md-toolbar-tools">
+                                                    <h1 class="md-flex">Address</h1>
+                                                </div>
+                                            </md-toolbar>
+                                            <md-content layout-padding="">
+                                                <div>
+                                                    <form name="userForm">
+                                                        <div layout-gt-sm="row">
+                                                            <md-input-container class="md-block" flex-gt-sm="">
+                                                                <label>Address</label>
+                                                                <input ng-model="user.address">
+                                                            </md-input-container>
+
+                                                            <md-input-container md-no-float="" class="md-block" flex-gt-sm="">
+                                                                <input ng-model="user.address2" placeholder="Address 2">
+                                                            </md-input-container>
+                                                        </div>
+                                                        <div layout-gt-sm="row">
+                                                            <md-input-container class="md-block" flex-gt-sm="">
+                                                                <label>City</label>
+                                                                <input ng-model="user.city">
+                                                            </md-input-container>
+
+                                                            <md-input-container class="md-block" flex-gt-sm="">
+                                                                <label>State</label>
+                                                                <md-select ng-model="user.state">
+                                                                    <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                                                                        {{state.abbrev}}
+                                                                    </md-option>
+                                                                </md-select>
+                                                            </md-input-container>
+
+                                                            <md-input-container class="md-block" flex-gt-sm="">
+                                                                <label>Postal Code</label>
+                                                                <input name="postalCode" ng-model="user.postalCode" placeholder="12345" required="" ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+
+                                                                <div ng-messages="userForm.postalCode.$error" role="alert" multiple="">
+                                                                    <div ng-message="required" class="my-message">You must supply a postal code.</div>
+                                                                    <div ng-message="pattern" class="my-message">
+                                                                        That doesn't look like a valid postal
+                                                                        code.
+                                                                    </div>
+                                                                    <div ng-message="md-maxlength" class="my-message">
+                                                                        Don't use the long version silly...we don't need to be that specific...
+                                                                    </div>
+                                                                </div>
+                                                            </md-input-container>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </md-content>
+                                        </md-content>
+                                    </md-tab>
+                                    <md-tab label="Security" class="tab">
+                                        <md-content class="md-padding">
+                                            <md-toolbar class="md-primary">
+                                                <div class="md-toolbar-tools">
+                                                    <h1 class="md-flex">Security</h1>
+                                                </div>
+                                            </md-toolbar>
+                                            <md-content layout-padding="">
+                                                <div>
+                                                    <form name="userForm">
+                                                        <md-input-container class="md-block" flex-gt-sm="">
+                                                            <label>Role</label>
+                                                            <md-select ng-model="user.institute" class="md-no-underline">
+                                                                <md-option value="axe">Admin</md-option>
+                                                                <md-option value="sword">End User</md-option>
+                                                                <md-option value="wand">Others</md-option>
+                                                            </md-select>
+                                                        </md-input-container>
+
+                                                        <md-input-container class="md-block" flex-gt-sm>
+                                                            <label>Email</label>
+                                                            <input name="email" ng-model="user.email"
+                                                                   required minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+
+                                                            <div class="hint" ng-show="showHints">How can we reach you?</div>
+
+                                                            <div ng-messages="userForm.email.$error" ng-hide="showHints">
+                                                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                                    Your email must be between 10 and 100 characters long and look like an e-mail address.
+                                                                </div>
+                                                            </div>
+                                                        </md-input-container>
+                                                        <md-input-container class="md-block" flex-gt-sm="">
+                                                            <label>Password</label>
+                                                            <input ng-model="user.password" type="password">
+                                                        </md-input-container>
+                                                        <md-input-container class="md-block" flex-gt-sm="">
+                                                            <label>Confirm Password</label>
+                                                            <input ng-model="user.cpassword" type="password">
+                                                        </md-input-container>
+                                                    </form>
+                                                </div>
+                                            </md-content>
+                                        </md-content>
+                                    </md-tab>
+                                </md-tabs>
+                            </md-content>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
